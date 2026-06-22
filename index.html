@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homework: Doctor's Advice – B1</title>
+    <style>
+        /* ----- RESET & BASE ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f2f5f7;
+            display: flex;
+            justify-content: center;
+            padding: 30px 16px;
+            color: #1e2f3d;
+            min-height: 100vh;
+        }
+
+        .homework-container {
+            max-width: 900px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 8px 40px rgba(0, 20, 30, 0.12);
+            padding: 40px 45px 50px;
+        }
+
+        /* ----- HEADER ----- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 3px solid #1f7a9e;
+            padding-bottom: 12px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0b2a3b;
+            letter-spacing: -0.3px;
+        }
+
+        .header h1 span {
+            color: #1f7a9e;
+        }
+
+        .header .meta {
+            display: flex;
+            gap: 20px;
+            font-size: 0.95rem;
+            color: #3e5f72;
+            flex-wrap: wrap;
+        }
+
+        .header .meta .field {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .header .meta .field span {
+            font-weight: 600;
+            color: #0b2a3b;
+        }
+
+        .header .meta .field .line-input {
+            border: none;
+            border-bottom: 1px solid #8aaec2;
+            background: transparent;
+            padding: 2px 4px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: #0b2a3b;
+            width: 120px;
+            transition: border-color 0.2s;
+        }
+
+        .header .meta .field .line-input:focus {
+            outline: none;
+            border-bottom-color: #1f7a9e;
+        }
+
+        /* ----- REFERENCE BOXES ----- */
+        .ref-box {
+            background: #f0f7fb;
+            border-radius: 18px;
+            padding: 18px 24px;
+            margin-bottom: 24px;
+            border-left: 5px solid #1f7a9e;
+        }
+
+        .ref-box h3 {
+            font-size: 1.1rem;
+            color: #0b2a3b;
+            margin-bottom: 6px;
+        }
+
+        .ref-box .ref-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 18px;
+            margin-top: 4px;
+        }
+
+        .ref-box .ref-item {
+            font-size: 0.95rem;
+            color: #123e52;
+        }
+
+        .ref-box .ref-item .en {
+            font-weight: 600;
+            color: #0b2a3b;
+        }
+
+        .ref-box .ref-item .ru {
+            color: #1a5772;
+            font-weight: 500;
+        }
+
+        .ref-box .ref-rule {
+            font-size: 0.98rem;
+            line-height: 1.7;
+            color: #123e52;
+        }
+
+        .ref-box .ref-rule .highlight {
+            background: #d4eaf5;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            color: #0b3f55;
+        }
+
+        .ref-box .ref-rule .example {
+            background: #ffffff;
+            padding: 2px 14px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 2px 4px 2px 0;
+            font-weight: 500;
+            border: 1px solid #c5dde9;
+            font-size: 0.9rem;
+        }
+
+        .ref-divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 20px 0 16px;
+            color: #4a6a7c;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .ref-divider::after {
+            content: "";
+            flex: 1;
+            height: 2px;
+            background: #ddeef6;
+        }
+
+        /* ----- SECTIONS ----- */
+        .section {
+            margin-bottom: 32px;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0b2a3b;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .section-title .badge {
+            background: #1f7a9e;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 14px;
+            border-radius: 30px;
+            letter-spacing: 0.4px;
+        }
+
+        .section-title .score-badge {
+            background: #e8f0f5;
+            color: #1a5772;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 2px 16px;
+            border-radius: 30px;
+            margin-left: auto;
+        }
+
+        /* ----- EXERCISE BOXES ----- */
+        .exercise {
+            background: #f8fcff;
+            border: 1px solid #ddeef6;
+            border-radius: 16px;
+            padding: 18px 22px;
+            margin-bottom: 14px;
+        }
+
+        .exercise .task-label {
+            font-weight: 600;
+            color: #1a5772;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            letter-spacing: 0.2px;
+        }
+
+        .exercise .task-label i {
+            font-weight: 400;
+            color: #4d748a;
+        }
+
+        /* ----- MATCHING (VOCAB) ----- */
+        .match-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 30px;
+        }
+
+        .match-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            border-bottom: 1px dashed #e2edf5;
+            font-size: 0.98rem;
+            flex-wrap: wrap;
+        }
+
+        .match-item .num {
+            font-weight: 700;
+            color: #1f7a9e;
+            min-width: 28px;
+        }
+
+        .match-item .word {
+            font-weight: 500;
+            color: #0b2a3b;
+        }
+
+        .match-item select {
+            padding: 4px 8px;
+            border: 2px solid #b8d4e3;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            background: #fff;
+            color: #0b2a3b;
+            min-width: 140px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .match-item select:focus {
+            outline: none;
+            border-color: #1f7a9e;
+        }
+
+        .match-item select.correct-select {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .match-item select.wrong-select {
+            border-color: #dc3545;
+            background: #f8dddd;
+        }
+
+        /* ----- GAP FILL (should/shouldn't) ----- */
+        .gap-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .gap-item {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #123e52;
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .gap-item select {
+            padding: 4px 10px;
+            border: 2px solid #b8d4e3;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            background: #fff;
+            color: #0b2a3b;
+            min-width: 100px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .gap-item select:focus {
+            outline: none;
+            border-color: #1f7a9e;
+        }
+
+        .gap-item select.correct-select {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .gap-item select.wrong-select {
+            border-color: #dc3545;
+            background: #f8dddd;
+        }
+
+        .gap-item .result-icon {
+            font-size: 1.1rem;
+            margin-left: 4px;
+        }
+
+        /* ----- CORRECT THE ADVICE ----- */
+        .advice-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .advice-item {
+            background: #ffffff;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid #ddeef6;
+        }
+
+        .advice-item .wrong-text {
+            color: #b13e3e;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .advice-item .wrong-text::before {
+            content: "❌ ";
+        }
+
+        .advice-item .fix-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 6px;
+            flex-wrap: wrap;
+        }
+
+        .advice-item .fix-area span {
+            font-weight: 600;
+            color: #1a5772;
+        }
+
+        .advice-item .fix-area input {
+            flex: 1 1 200px;
+            padding: 6px 14px;
+            border: 2px solid #b8d4e3;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            background: #fff;
+            color: #0b2a3b;
+            transition: border-color 0.2s;
+        }
+
+        .advice-item .fix-area input:focus {
+            outline: none;
+            border-color: #1f7a9e;
+        }
+
+        .advice-item .fix-area input.correct-input {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .advice-item .fix-area input.wrong-input {
+            border-color: #dc3545;
+            background: #f8dddd;
+        }
+
+        .advice-item .advice-feedback {
+            margin-top: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 2px 0;
+        }
+
+        .advice-item .advice-feedback .correct-answer {
+            color: #1a5772;
+            font-weight: 400;
+        }
+
+        /* ----- VOCAB IN CONTEXT ----- */
+        .context-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .context-item {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #123e52;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .context-item select {
+            padding: 4px 10px;
+            border: 2px solid #b8d4e3;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            background: #fff;
+            color: #0b2a3b;
+            min-width: 120px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .context-item select:focus {
+            outline: none;
+            border-color: #1f7a9e;
+        }
+
+        .context-item select.correct-select {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .context-item select.wrong-select {
+            border-color: #dc3545;
+            background: #f8dddd;
+        }
+
+        /* ----- RESULTS CONTAINER ----- */
+        #resultsContainer {
+            margin-top: 20px;
+            border-top: 2px solid #1f7a9e;
+            padding-top: 20px;
+        }
+
+        #resultsContainer h3 {
+            color: #0b2a3b;
+            margin-bottom: 10px;
+        }
+
+        #resultsText {
+            width: 100%;
+            height: 300px;
+            padding: 12px;
+            border: 1px solid #ddeef6;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            background: #f8fcff;
+            color: #0b2a3b;
+            resize: vertical;
+        }
+
+        /* ----- BUTTONS ----- */
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e2edf5;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: #e8f0f5;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1a5772;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: #d1e2ed;
+        }
+
+        .btn-primary {
+            background: #1f7a9e;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #146183;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: #fff;
+        }
+
+        .btn-success:hover {
+            background: #1e7e34;
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* ----- RESPONSIVE ----- */
+        @media (max-width: 700px) {
+            .homework-container {
+                padding: 24px 16px;
+            }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .header .meta {
+                gap: 12px;
+            }
+            .match-grid {
+                grid-template-columns: 1fr;
+            }
+            .advice-item .fix-area {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .action-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .btn {
+                text-align: center;
+            }
+            .btn-group {
+                flex-direction: column;
+            }
+            .ref-box .ref-grid {
+                flex-direction: column;
+                gap: 2px;
+            }
+        }
+
+        @media print {
+            body {
+                background: #fff;
+                padding: 0.2in;
+            }
+            .homework-container {
+                box-shadow: none;
+                border-radius: 0;
+                padding: 0;
+            }
+            .action-bar,
+            #resultsContainer {
+                display: none !important;
+            }
+            .exercise {
+                border: 1px solid #ccc;
+                background: #fafafa;
+            }
+            select,
+            input {
+                border: 1px solid #999 !important;
+                background: #fff !important;
+                -webkit-appearance: none;
+                appearance: none;
+            }
+            select.correct-select,
+            select.wrong-select,
+            input.correct-input,
+            input.wrong-input {
+                border-color: #999 !important;
+                background: #fff !important;
+            }
+            .ref-box {
+                border-left: 3px solid #999;
+                background: #f5f5f5;
+            }
+        }
+
+        .text-muted {
+            color: #5a7e92;
+            font-size: 0.9rem;
+        }
+
+        .mt-2 {
+            margin-top: 8px;
+        }
+
+        .feedback-banner {
+            padding: 10px 18px;
+            border-radius: 14px;
+            font-weight: 600;
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        .feedback-banner.success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .feedback-banner.fail {
+            background: #f8dddd;
+            color: #721c24;
+        }
+
+        .feedback-banner.info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="homework-container" id="homework">
+
+        <!-- ========== HEADER ========== -->
+        <div class="header">
+            <h1>🩺 Doctor's <span>Advice</span></h1>
+            <div class="meta">
+                <div class="field"><span>Name:</span> <input type="text" class="line-input" id="studentName" placeholder="Your name" /></div>
+                <div class="field"><span>Date:</span> <input type="text" class="line-input" id="studentDate" placeholder="Date" /></div>
+                <div class="field"><span>Class:</span> <input type="text" class="line-input" id="studentClass" placeholder="Class" /></div>
+            </div>
+        </div>
+
+        <!-- ========== REFERENCE: GRAMMAR RULES ========== -->
+        <div class="ref-box">
+            <h3>⚖️ Grammar: Should / Shouldn't</h3>
+            <div class="ref-rule">
+                <div><span class="highlight">should</span> + verb → <strong>good advice</strong> (what is a good idea)</div>
+                <div><span class="highlight">shouldn't</span> (should not) + verb → <strong>bad advice</strong> (what is not a good idea)</div>
+                <div style="margin-top:6px;">
+                    <span class="example">✅ You should eat garlic.</span>
+                    <span class="example">❌ You shouldn't work too much.</span>
+                </div>
+                <div style="margin-top:4px;">
+                    <strong>❓ Questions:</strong> <span class="example">Should I take vitamins?</span>
+                    <span class="example">Why should I stay in bed?</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== REFERENCE: VOCABULARY ========== -->
+        <div class="ref-box">
+            <h3>📚 Vocabulary: Health &amp; Treatment</h3>
+            <div class="ref-grid">
+                <span class="ref-item"><span class="en">a patch</span> — <span class="ru">пластырь</span></span>
+                <span class="ref-item"><span class="en">a compress</span> — <span class="ru">компресс</span></span>
+                <span class="ref-item"><span class="en">garlic</span> — <span class="ru">чеснок</span></span>
+                <span class="ref-item"><span class="en">to get rest</span> — <span class="ru">отдыхать</span></span>
+                <span class="ref-item"><span class="en">a cut</span> — <span class="ru">порез</span></span>
+                <span class="ref-item"><span class="en">to take vitamins</span> — <span class="ru">принимать витамины</span></span>
+                <span class="ref-item"><span class="en">blood</span> — <span class="ru">кровь</span></span>
+                <span class="ref-item"><span class="en">to stay in bed</span> — <span class="ru">соблюдать постельный режим</span></span>
+                <span class="ref-item"><span class="en">pills</span> — <span class="ru">таблетки</span></span>
+                <span class="ref-item"><span class="en">a bandage</span> — <span class="ru">бинт</span></span>
+            </div>
+        </div>
+
+        <div class="ref-divider">✧ Let's practise ✧</div>
+
+        <!-- ========== EXERCISE 1: VOCABULARY MATCHING ========== -->
+        <div class="section">
+            <div class="section-title">
+                📚 Exercise 1: Vocabulary Match
+                <span class="badge">Match</span>
+                <span class="score-badge" id="matchScore">0 / 10</span>
+            </div>
+            <div class="exercise">
+                <div class="task-label">🔗 Match the English words with the correct Russian translation.</div>
+                <div class="match-grid" id="matchGrid">
+                    <!-- generated by JS -->
+                </div>
+                <div style="margin-top: 14px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+                    <button class="btn btn-success" onclick="checkMatch()">✅ Check matching</button>
+                    <button class="btn" onclick="resetMatch()">⟳ Reset</button>
+                    <span id="matchFeedback" style="font-weight: 500; color: #0b2a3b;"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== EXERCISE 2: SHOULD / SHOULDN'T GAP FILL ========== -->
+        <div class="section">
+            <div class="section-title">
+                ⚖️ Exercise 2: Should / Shouldn't
+                <span class="badge">Fill in</span>
+                <span class="score-badge" id="shouldScore">0 / 8</span>
+            </div>
+            <div class="exercise">
+                <div class="task-label">✍️ Complete the sentences with <strong>should</strong> or <strong>shouldn't</strong>.</div>
+                <div class="gap-list" id="shouldGapList">
+                    <!-- generated by JS -->
+                </div>
+                <div style="margin-top: 14px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+                    <button class="btn btn-success" onclick="checkShould()">✅ Check answers</button>
+                    <button class="btn" onclick="resetShould()">⟳ Reset</button>
+                    <span id="shouldFeedback" style="font-weight: 500; color: #0b2a3b;"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== EXERCISE 3: CORRECT THE ADVICE ========== -->
+        <div class="section">
+            <div class="section-title">
+                ✅ Exercise 3: Correct the Advice
+                <span class="badge">Rewrite</span>
+                <span class="score-badge" id="adviceScore">0 / 5</span>
+            </div>
+            <div class="exercise">
+                <div class="task-label">✏️ Find the mistake and rewrite the advice correctly. Use <strong>should</strong> or <strong>shouldn't</strong>.</div>
+                <div class="advice-list" id="adviceList">
+                    <!-- generated by JS -->
+                </div>
+                <div style="margin-top: 14px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+                    <button class="btn btn-success" onclick="checkAdvice()">✅ Check answers</button>
+                    <button class="btn" onclick="resetAdvice()">⟳ Reset</button>
+                    <span id="adviceFeedback" style="font-weight: 500; color: #0b2a3b;"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== EXERCISE 4: VOCABULARY IN CONTEXT ========== -->
+        <div class="section">
+            <div class="section-title">
+                📝 Exercise 4: Vocabulary in Context
+                <span class="badge">Fill in</span>
+                <span class="score-badge" id="contextScore">0 / 6</span>
+            </div>
+            <div class="exercise">
+                <div class="task-label">📦 Complete the sentences with the correct word from the box.</div>
+                <div style="background: #eef6fb; border-radius: 40px; padding: 6px 18px; display: inline-block; margin-bottom: 12px; font-weight: 500; color: #1a5772; font-size: 0.9rem;">
+                    pills · bandage · garlic · rest · compress · vitamins
+                </div>
+                <div class="context-grid" id="contextGrid">
+                    <!-- generated by JS -->
+                </div>
+                <div style="margin-top: 14px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+                    <button class="btn btn-success" onclick="checkContext()">✅ Check answers</button>
+                    <button class="btn" onclick="resetContext()">⟳ Reset</button>
+                    <span id="contextFeedback" style="font-weight: 500; color: #0b2a3b;"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== ACTION BAR ========== -->
+        <div class="action-bar">
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="window.print()">🖨️ Print Homework</button>
+                <button class="btn" onclick="resetAll()">🔄 Reset All</button>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-success" onclick="checkAll()">📊 Check All</button>
+                <button class="btn btn-warning" onclick="sendResults()">📧 Send Results</button>
+            </div>
+        </div>
+
+        <!-- ========== RESULTS CONTAINER ========== -->
+        <div id="resultsContainer" style="display: none;">
+            <h3>📋 Your Detailed Results</h3>
+            <textarea id="resultsText" readonly></textarea>
+            <div style="margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="copyResults()">📋 Copy to Clipboard</button>
+                <button class="btn" onclick="document.getElementById('resultsContainer').style.display='none'">✖ Close</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================================
+        //  DATA
+        // ============================================================
+        const VOCAB_DATA = [
+            { en: 'a patch', ru: 'пластырь' },
+            { en: 'a compress', ru: 'компресс' },
+            { en: 'garlic', ru: 'чеснок' },
+            { en: 'to get rest', ru: 'отдыхать' },
+            { en: 'a cut', ru: 'порез' },
+            { en: 'to take vitamins', ru: 'принимать витамины' },
+            { en: 'blood', ru: 'кровь' },
+            { en: 'to stay in bed', ru: 'соблюдать постельный режим' },
+            { en: 'pills', ru: 'таблетки' },
+            { en: 'a bandage', ru: 'бинт' }
+        ];
+
+        const SHOULD_DATA = [
+            { sentence: 'You ______ eat a lot of honey. It\'s not good for you.', answer: 'shouldn\'t' },
+            { sentence: 'If you have a headache, you ______ get some rest.', answer: 'should' },
+            { sentence: 'Why ______ I stay in bed? I don\'t have any symptoms.', answer: 'should' },
+            { sentence: 'You ______ put a cold compress on your head.', answer: 'should' },
+            { sentence: 'Doctors tell me I ______ take vitamins A and E.', answer: 'should' },
+            { sentence: 'She ______ work so hard. She is very sick.', answer: 'shouldn\'t' },
+            { sentence: '______ I take a hot bath if I have a cold?', answer: 'should' },
+            { sentence: 'You ______ eat too much sugar. It\'s unhealthy.', answer: 'shouldn\'t' }
+        ];
+
+        const ADVICE_DATA = [
+            { wrong: 'Put a hot compress on your head when you have a high temperature.', correct: 'You should put a cold compress on your head when you have a high temperature.' },
+            { wrong: 'Don\'t wash a cut and don\'t put a bandage.', correct: 'You should wash a cut and put a bandage.' },
+            { wrong: 'Never eat garlic when you have a cold!', correct: 'You should eat garlic when you have a cold.' },
+            { wrong: 'If you have a headache, work more! Never get any rest!', correct: 'If you have a headache, you should get some rest.' },
+            { wrong: 'Take a cold bath when you have a cold.', correct: 'You should take a hot bath when you have a cold.' }
+        ];
+
+        const CONTEXT_DATA = [
+            { sentence: 'I have a terrible pain. Give me some ______.', answer: 'pills' },
+            { sentence: 'My finger is bleeding. Can you give me a ______?', answer: 'bandage' },
+            { sentence: 'I don\'t eat ______ because of its terrible smell.', answer: 'garlic' },
+            { sentence: 'If you are tired, you should get some ______.', answer: 'rest' },
+            { sentence: 'I don\'t believe that a cold ______ helps.', answer: 'compress' },
+            { sentence: 'You should take ______ A and E.', answer: 'vitamins' }
+        ];
+
+        const CONTEXT_OPTIONS = ['pills', 'bandage', 'garlic', 'rest', 'compress', 'vitamins'];
+
+        // Shuffle helper
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // Normalize for comparison
+        function normalize(str) {
+            return str.trim().toLowerCase().replace(/\s+/g, ' ');
+        }
+
+        // ============================================================
+        //  EXERCISE 1: VOCABULARY MATCHING
+        // ============================================================
+        let matchSelections = new Array(VOCAB_DATA.length).fill('');
+        let matchChecked = false;
+
+        function renderMatch() {
+            const grid = document.getElementById('matchGrid');
+            grid.innerHTML = '';
+            const options = VOCAB_DATA.map(d => d.ru);
+            const shuffledOptions = shuffleArray([...options]);
+
+            VOCAB_DATA.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = 'match-item';
+                div.innerHTML = `
+                    <span class="num">${idx+1}.</span>
+                    <span class="word">${item.en}</span>
+                    →
+                    <select data-idx="${idx}" class="match-select">
+                        <option value="">— choose —</option>
+                        ${shuffledOptions.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+                    </select>
+                `;
+                const select = div.querySelector('select');
+                if (matchSelections[idx]) {
+                    select.value = matchSelections[idx];
+                }
+                if (matchChecked) {
+                    const isCorrect = matchSelections[idx] === item.ru;
+                    select.classList.add(isCorrect ? 'correct-select' : 'wrong-select');
+                    select.disabled = true;
+                }
+                select.addEventListener('change', function() {
+                    if (matchChecked) return;
+                    matchSelections[idx] = this.value;
+                    updateMatchScore();
+                });
+                grid.appendChild(div);
+            });
+            updateMatchScore();
+        }
+
+        function updateMatchScore() {
+            let correct = 0;
+            VOCAB_DATA.forEach((item, idx) => {
+                if (matchSelections[idx] === item.ru) correct++;
+            });
+            document.getElementById('matchScore').textContent = `${correct} / ${VOCAB_DATA.length}`;
+            return correct;
+        }
+
+        function checkMatch() {
+            matchChecked = true;
+            let correct = 0;
+            const selects = document.querySelectorAll('.match-select');
+            selects.forEach((select, idx) => {
+                const isCorrect = select.value === VOCAB_DATA[idx].ru;
+                if (isCorrect) correct++;
+                select.classList.add(isCorrect ? 'correct-select' : 'wrong-select');
+                select.disabled = true;
+            });
+            const feedback = document.getElementById('matchFeedback');
+            if (correct === VOCAB_DATA.length) {
+                feedback.innerHTML = '🎉 Perfect! All matches are correct!';
+                feedback.style.color = '#155724';
+            } else {
+                feedback.innerHTML = `❌ ${correct} out of ${VOCAB_DATA.length} correct. Try again!`;
+                feedback.style.color = '#721c24';
+            }
+            document.getElementById('matchScore').textContent = `${correct} / ${VOCAB_DATA.length}`;
+        }
+
+        function resetMatch() {
+            matchSelections = new Array(VOCAB_DATA.length).fill('');
+            matchChecked = false;
+            document.getElementById('matchFeedback').textContent = '';
+            renderMatch();
+        }
+
+        // ============================================================
+        //  EXERCISE 2: SHOULD / SHOULDN'T
+        // ============================================================
+        let shouldSelections = new Array(SHOULD_DATA.length).fill('');
+        let shouldChecked = false;
+
+        function renderShould() {
+            const list = document.getElementById('shouldGapList');
+            list.innerHTML = '';
+            const options = ['should', 'shouldn\'t'];
+            SHOULD_DATA.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = 'gap-item';
+                const shuffled = shuffleArray([...options]);
+                const parts = item.sentence.split('______');
+                div.innerHTML = `
+                    <span>${parts[0]}</span>
+                    <select data-idx="${idx}" class="should-select">
+                        <option value="">— choose —</option>
+                        ${shuffled.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+                    </select>
+                    <span>${parts[1] || ''}</span>
+                    <span class="result-icon"></span>
+                `;
+                const select = div.querySelector('select');
+                if (shouldSelections[idx]) {
+                    select.value = shouldSelections[idx];
+                }
+                if (shouldChecked) {
+                    const isCorrect = shouldSelections[idx] === item.answer;
+                    select.classList.add(isCorrect ? 'correct-select' : 'wrong-select');
+                    select.disabled = true;
+                    const icon = div.querySelector('.result-icon');
+                    icon.textContent = isCorrect ? '✅' : '❌';
+                }
+                select.addEventListener('change', function() {
+                    if (shouldChecked) return;
+                    shouldSelections[idx] = this.value;
+                    updateShouldScore();
+                });
+                list.appendChild(div);
+            });
+            updateShouldScore();
+        }
+
+        function updateShouldScore() {
+            let correct = 0;
+            SHOULD_DATA.forEach((item, idx) => {
+                if (shouldSelections[idx] === item.answer) correct++;
+            });
+            document.getElementById('shouldScore').textContent = `${correct} / ${SHOULD_DATA.length}`;
+            return correct;
+        }
+
+        function checkShould() {
+            shouldChecked = true;
+            let correct = 0;
+            const selects = document.querySelectorAll('.should-select');
+            selects.forEach((select, idx) => {
+                const isCorrect = select.value === SHOULD_DATA[idx].answer;
+                if (isCorrect) correct++;
+                select.classList.add(isCorrect ? 'correct-select' : 'wrong-select');
+                select.disabled = true;
+                const icon = select.closest('.gap-item').querySelector('.result-icon');
+                icon.textContent = isCorrect ? '✅' : '❌';
+            });
+            const feedback = document.getElementById('shouldFeedback');
+            if (correct === SHOULD_DATA.length) {
+                feedback.innerHTML = '🎉 Perfect! All answers are correct!';
+                feedback.style.color = '#155724';
+            } else {
+                feedback.innerHTML = `❌ ${correct} out of ${SHOULD_DATA.length} correct. Try again!`;
+                feedback.style.color = '#721c24';
+            }
+            document.getElementById('shouldScore').textContent = `${correct} / ${SHOULD_DATA.length}`;
+        }
+
+        function resetShould() {
+            shouldSelections = new Array(SHOULD_DATA.length).fill('');
+            shouldChecked = false;
+            document.getElementById('shouldFeedback').textContent = '';
+            renderShould();
+        }
+
+        // ============================================================
+        //  EXERCISE 3: CORRECT THE ADVICE
+        // ============================================================
+        let adviceInputs = new Array(ADVICE_DATA.length).fill('');
+        let adviceChecked = false;
+
+        function renderAdvice() {
+            const list = document.getElementById('adviceList');
+            list.innerHTML = '';
+            ADVICE_DATA.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = 'advice-item';
+                div.innerHTML = `
+                    <div class="wrong-text">${item.wrong}</div>
+                    <div class="fix-area">
+                        <span>→</span>
+                        <input type="text" data-idx="${idx}" class="advice-input" placeholder="Type your correction..." value="${adviceInputs[idx] || ''}" />
+                    </div>
+                    <div class="advice-feedback"></div>
+                `;
+                const input = div.querySelector('.advice-input');
+                if (adviceChecked) {
+                    const isCorrect = normalize(input.value) === normalize(item.correct);
+                    input.classList.add(isCorrect ? 'correct-input' : 'wrong-input');
+                    input.disabled = true;
+                    const fb = div.querySelector('.advice-feedback');
+                    if (isCorrect) {
+                        fb.innerHTML = '✅ Correct!';
+                        fb.style.color = '#155724';
+                    } else {
+                        fb.innerHTML = `❌ Incorrect. Correct: <strong class="correct-answer">${item.correct}</strong>`;
+                        fb.style.color = '#721c24';
+                    }
+                }
+                input.addEventListener('input', function() {
+                    if (adviceChecked) return;
+                    adviceInputs[idx] = this.value;
+                    updateAdviceScore();
+                    const fb = div.querySelector('.advice-feedback');
+                    fb.innerHTML = '';
+                });
+                list.appendChild(div);
+            });
+            updateAdviceScore();
+        }
+
+        function updateAdviceScore() {
+            let correct = 0;
+            ADVICE_DATA.forEach((item, idx) => {
+                if (normalize(adviceInputs[idx]) === normalize(item.correct)) correct++;
+            });
+            document.getElementById('adviceScore').textContent = `${correct} / ${ADVICE_DATA.length}`;
+            return correct;
+        }
+
+        function checkAdvice() {
+            adviceChecked = true;
+            let correct = 0;
+            const items = document.querySelectorAll('.advice-item');
+            items.forEach((div, idx) => {
+                const input = div.querySelector('.advice-input');
+                const isCorrect = normalize(input.value) === normalize(ADVICE_DATA[idx].correct);
+                if (isCorrect) correct++;
+                input.classList.add(isCorrect ? 'correct-input' : 'wrong-input');
+                input.disabled = true;
+                const fb = div.querySelector('.advice-feedback');
+                if (isCorrect) {
+                    fb.innerHTML = '✅ Correct!';
+                    fb.style.color = '#155724';
+                } else {
+                    fb.innerHTML = `❌ Incorrect. Correct: <strong class="correct-answer">${ADVICE_DATA[idx].correct}</strong>`;
+                    fb.style.color = '#721c24';
+                }
+            });
+            const feedback = document.getElementById('adviceFeedback');
+            if (correct === ADVICE_DATA.length) {
+                feedback.innerHTML = '🎉 Perfect! All advice is correct!';
+                feedback.style.color = '#155724';
+            } else {
+                feedback.innerHTML = `❌ ${correct} out of ${ADVICE_DATA.length} correct. Try again!`;
+                feedback.style.color = '#721c24';
+            }
+            document.getElementById('adviceScore').textContent = `${correct} / ${ADVICE_DATA.length}`;
+        }
+
+        function resetAdvice() {
+            adviceInputs = new Array(ADVICE_DATA.length).fill('');
+            adviceChecked = false;
+            document.getElementById('adviceFeedback').textContent = '';
+            renderAdvice();
+        }
+
+        // ============================================================
+        //  EXERCISE 4: VOCABULARY IN CONTEXT
+        // ============================================================
+        let contextSelections = new Array(CONTEXT_DATA.length).fill('');
+        let contextChecked = false;
+
+        function renderContext() {
+            const grid = document.getElementById('contextGrid');
+            grid.innerHTML = '';
+            const shuffledOptions = shuffleArray([...CONTEXT_OPTIONS]);
+
+            CONTEXT_DATA.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = 'context-item';
+                const parts = item.sentence.split('______');
+                div.innerHTML = `
+                    <span>${parts[0]}</span>
+                    <select data-idx="${idx}" class="context-select">
+                        <option value="">— choose —</option>
+                        ${shuffledOptions.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+                    </select>
+                    <span>${parts[1] || ''}</span>
+                    <span class="result-icon"></span>
+                `;
+                const select = div.querySelector('select');
+                if (contextSelections[idx]) {
+                    select.value = contextSelections[idx];
+                }
+                if (contextChecked) {
+                    const isCorrect = contextSelections[idx] === item.answer;
+                    select.classList.add(isCorrect ? 'correct-select' : 'wrong-select');
+                    select.disabled = true;
+                    const icon = div.querySelector('.result-icon');
+                    icon.textContent = isCorrect ? '✅' : '❌';
+                }
+                select.addEventListener('change', function() {
+                    if (contextChecked) return;
+                    contextSelections[idx] = this.value;
+                    updateContextScore();
+                });
+                grid.appendChild(div);
+            });
+            updateContextScore();
+        }
+
+        function updateContextScore() {
+            let correct = 0;
+            CONTEXT_DATA.forEach((item, idx) => {
+                if (contextSelections[idx] === item.answer) correct++;
+            });
+            document.getElementById('contextScore').textContent = `${correct} / ${CONTEXT_DATA.length}`;
+            return correct;
+        }
+
+        function checkContext() {
+            contextChecked = true;
+            let correct = 0;
+            const selects = document.querySelectorAll('.context-select');
+            selects.forEach((select, idx) => {
+                const isCorrect = select.value === CONTEXT_DATA[idx].answer;
+                if (isCorrect) correct++;
+                select.classList.add(isCorrect ? 'correct-select' : 'wrong-select');
+                select.disabled = true;
+                const icon = select.closest('.context-item').querySelector('.result-icon');
+                icon.textContent = isCorrect ? '✅' : '❌';
+            });
+            const feedback = document.getElementById('contextFeedback');
+            if (correct === CONTEXT_DATA.length) {
+                feedback.innerHTML = '🎉 Perfect! All answers are correct!';
+                feedback.style.color = '#155724';
+            } else {
+                feedback.innerHTML = `❌ ${correct} out of ${CONTEXT_DATA.length} correct. Try again!`;
+                feedback.style.color = '#721c24';
+            }
+            document.getElementById('contextScore').textContent = `${correct} / ${CONTEXT_DATA.length}`;
+        }
+
+        function resetContext() {
+            contextSelections = new Array(CONTEXT_DATA.length).fill('');
+            contextChecked = false;
+            document.getElementById('contextFeedback').textContent = '';
+            renderContext();
+        }
+
+        // ============================================================
+        //  GLOBAL FUNCTIONS
+        // ============================================================
+        function checkAll() {
+            checkMatch();
+            checkShould();
+            checkAdvice();
+            checkContext();
+            document.querySelector('.action-bar').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function resetAll() {
+            resetMatch();
+            resetShould();
+            resetAdvice();
+            resetContext();
+            document.querySelector('.action-bar').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // ============================================================
+        //  SEND RESULTS
+        // ============================================================
+        function sendResults() {
+            const name = document.getElementById('studentName').value || 'Not provided';
+            const date = document.getElementById('studentDate').value || 'Not provided';
+            const cls = document.getElementById('studentClass').value || 'Not provided';
+
+            // Get scores
+            const matchScore = updateMatchScore();
+            const shouldScore = updateShouldScore();
+            const adviceScore = updateAdviceScore();
+            const contextScore = updateContextScore();
+
+            // Build detailed report
+            let report = '🏥 Homework Results: Doctor\'s Advice\n';
+            report += '='.repeat(40) + '\n\n';
+            report += `Student: ${name}\n`;
+            report += `Class: ${cls}\n`;
+            report += `Date: ${date}\n\n`;
+
+            report += '---------- Scores ----------\n';
+            report += `Vocabulary Match: ${matchScore} / ${VOCAB_DATA.length}\n`;
+            report += `Should / Shouldn't: ${shouldScore} / ${SHOULD_DATA.length}\n`;
+            report += `Correct the Advice: ${adviceScore} / ${ADVICE_DATA.length}\n`;
+            report += `Vocabulary in Context: ${contextScore} / ${CONTEXT_DATA.length}\n\n`;
+
+            report += '---------- Incorrect Answers ----------\n';
+
+            // Match incorrect
+            report += '\nVocabulary Match:\n';
+            let hasMatchErrors = false;
+            VOCAB_DATA.forEach((item, idx) => {
+                if (matchSelections[idx] !== item.ru) {
+                    hasMatchErrors = true;
+                    report += `  Q${idx+1}. ${item.en} -> answered: ${matchSelections[idx] || '(empty)'} (correct: ${item.ru})\n`;
+                }
+            });
+            if (!hasMatchErrors) report += '  ✅ All correct!\n';
+
+            // Should incorrect
+            report += '\nShould / Shouldn\'t:\n';
+            let hasShouldErrors = false;
+            SHOULD_DATA.forEach((item, idx) => {
+                if (shouldSelections[idx] !== item.answer) {
+                    hasShouldErrors = true;
+                    const parts = item.sentence.split('______');
+                    report += `  Q${idx+1}. ${parts[0]}______${parts[1] || ''} -> answered: ${shouldSelections[idx] || '(empty)'} (correct: ${item.answer})\n`;
+                }
+            });
+            if (!hasShouldErrors) report += '  ✅ All correct!\n';
+
+            // Advice incorrect
+            report += '\nCorrect the Advice:\n';
+            let hasAdviceErrors = false;
+            ADVICE_DATA.forEach((item, idx) => {
+                if (normalize(adviceInputs[idx]) !== normalize(item.correct)) {
+                    hasAdviceErrors = true;
+                    report += `  Q${idx+1}. ${item.wrong}\n`;
+                    report += `     -> answered: ${adviceInputs[idx] || '(empty)'}\n`;
+                    report += `     -> correct: ${item.correct}\n`;
+                }
+            });
+            if (!hasAdviceErrors) report += '  ✅ All correct!\n';
+
+            // Context incorrect
+            report += '\nVocabulary in Context:\n';
+            let hasContextErrors = false;
+            CONTEXT_DATA.forEach((item, idx) => {
+                if (contextSelections[idx] !== item.answer) {
+                    hasContextErrors = true;
+                    const parts = item.sentence.split('______');
+                    report += `  Q${idx+1}. ${parts[0]}______${parts[1] || ''} -> answered: ${contextSelections[idx] || '(empty)'} (correct: ${item.answer})\n`;
+                }
+            });
+            if (!hasContextErrors) report += '  ✅ All correct!\n';
+
+            // Display in textarea
+            const container = document.getElementById('resultsContainer');
+            const textarea = document.getElementById('resultsText');
+            textarea.value = report;
+            container.style.display = 'block';
+            container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Send via email
+            const subject = encodeURIComponent('Homework Results: Doctor\'s Advice');
+            const body = encodeURIComponent(report);
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+        }
+
+        function copyResults() {
+            const textarea = document.getElementById('resultsText');
+            textarea.select();
+            navigator.clipboard.writeText(textarea.value).then(() => {
+                alert('✅ Results copied to clipboard!');
+            }).catch(() => {
+                document.execCommand('copy');
+                alert('✅ Results copied to clipboard!');
+            });
+        }
+
+        // ============================================================
+        //  INIT
+        // ============================================================
+        renderMatch();
+        renderShould();
+        renderAdvice();
+        renderContext();
+
+        console.log('🏥 Interactive homework ready!');
+    </script>
+
+</body>
+</html>
